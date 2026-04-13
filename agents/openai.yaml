@@ -1,0 +1,7 @@
+interface:
+  display_name: "Hermes Intelligent Routing"
+  short_description: "Configure Hermes difficulty-aware model routing."
+  default_prompt: "Use $hermes-intelligent-routing to set up Hermes model pools, billing-mode priorities, and fallbacks."
+
+policy:
+  allow_implicit_invocation: true
