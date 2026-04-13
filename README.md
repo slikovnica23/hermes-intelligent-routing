@@ -88,6 +88,43 @@ smart_model_routing:
         billing_unit: tokens
 ```
 
+## Before / After
+
+### Before
+
+Many Hermes setups start with a single default model and a single fallback:
+
+- every request goes to one paid model
+- simple and hard tasks are billed the same way
+- free or local routes are only switched manually
+- future `plan` vs `usage_api` expansion is undocumented
+
+### After
+
+With this skill, the same Hermes setup becomes a layered routing system:
+
+- simple requests can enter a lower-cost pool
+- complex requests can enter a stronger pool
+- `plan`, `usage_api`, `free`, and `local` routes can be described explicitly
+- fallback behavior is documented and repeatable
+- future runtime expansion has a clean template instead of ad hoc edits
+
+## Practical Scenario
+
+Example target setup:
+
+- high-cost pool: `MiniMax-M2.7` as the stronger paid route
+- low-cost pool: `MiniMax-M2.5` as the cheaper paid route
+- token-style secondary routes: OpenRouter free models
+- emergency fallback: local Ollama
+
+In that setup, Hermes can be configured to behave like this:
+
+- simple rewrite or summarization request -> lower-cost pool
+- architecture, debugging, or migration request -> stronger pool
+- primary route failure -> local fallback
+- future token/API credential arrival -> plug into the existing pool model
+
 ## Installation
 
 ### Option 1: Copy into a Codex skills directory
